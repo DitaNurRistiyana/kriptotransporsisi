@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Kripto Transposisi: Myszkowski &amp; Ganda</title>
+    <style>
+        :root {
+            --bg: #f3f1ea;
+            --fg: #1d2a2a;
+            --mut: #5d6b6b;
+            --card: #fff;
+            --line: #cfd6d2;
+            --acc: #0f6b66;
+            --c1: #ffe08a;
+            --c2: #a9e0d6;
+            --c3: #f4b8a8;
+            --c4: #c9c3f2;
+            --c5: #d4e9a0;
+            --c6: #f2c6e3;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #121a1a;
+                --fg: #e6eeee;
+                --mut: #97a8a8;
+                --card: #1b2626;
+                --line: #33423f;
+                --acc: #5fd0c5;
+                --c1: #6b5a14;
+                --c2: #175a52;
+                --c3: #6b3322;
+                --c4: #3d3770;
+                --c5: #46591a;
+                --c6: #6b2f58
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #121a1a;
+            --fg: #e6eeee;
+            --mut: #97a8a8;
+            --card: #1b2626;
+            --line: #33423f;
+            --acc: #5fd0c5;
+            --c1: #6b5a14;
+            --c2: #175a52;
+            --c3: #6b3322;
+            --c4: #3d3770;
+            --c5: #46591a;
+            --c6: #6b2f58
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--fg);
+            font: 16px/1.55 Georgia, "Times New Roman", serif
+        }
+
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 48px
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0 0 4px;
+            letter-spacing: -.01em
+        }
+
+        p.sub {
+            margin: 0 0 20px;
+            color: var(--mut)
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px
+        }
+
+        label {
+            display: block;
+            font: 600 .85rem system-ui, sans-serif;
+            margin: 10px 0 4px
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            font: 1rem ui-monospace, Menlo, Consolas, monospace;
+            padding: 9px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: var(--bg);
+            color: var(--fg)
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .row>* {
+            flex: 1 1 200px
+        }
+
+        .btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap
+        }
+
+        button {
+            font: 600 .95rem system-ui, sans-serif;
+            padding: 10px 18px;
+            border-radius: 6px;
+            border: 1px solid var(--acc);
+            background: var(--acc);
+            color: var(--bg);
+            cursor: pointer
+        }
+
+        button.alt {
+            background: transparent;
+            color: var(--acc)
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid var(--acc);
+            outline-offset: 2px
+        }
+
+        .out {
+            font: 1.1rem ui-monospace, Menlo, Consolas, monospace;
+            word-break: break-all;
+            background: var(--bg);
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px dashed var(--acc);
+            min-height: 48px
+        }
+
+        .step {
+            margin-top: 14px
+        }
+
+        .step h3 {
+            font: 600 .9rem system-ui, sans-serif;
+            margin: 0 0 6px;
+            color: var(--mut)
+        }
+
+        .scroll {
+            overflow-x: auto
+        }
+
+        table {
+            border-collapse: collapse;
+            font: 1rem ui-monospace, Menlo, Consolas, monospace
+        }
+
+        td,
+        th {
+            border: 1px solid var(--line);
+            padding: 4px 9px;
+            text-align: center
+        }
+
+        th {
+            background: var(--bg)
+        }
+
+        td.r {
+            color: var(--mut);
+            font-size: .8rem
+        }
+
+        .k1 {
+            background: var(--c1)
+        }
+
+        .k2 {
+            background: var(--c2)
+        }
+
+        .k3 {
+            background: var(--c3)
+        }
+
+        .k4 {
+            background: var(--c4)
+        }
+
+        .k5 {
+            background: var(--c5)
+        }
+
+        .k6 {
+            background: var(--c6)
+        }
+
+        .err {
+            color: #b3261e;
+            font: 600 .9rem system-ui, sans-serif
+        }
+
+        small {
+            color: var(--mut);
+            font: .85rem system-ui, sans-serif
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Kripto Transposisi</h1>
+        <p class="sub">Enkripsi dan dekripsi dengan Myszkowski atau Transposisi Ganda, lengkap dengan tabel langkahnya.
+        </p>
+
+        <div class="card">
+            <label for="mode">Metode</label>
+            <select id="mode">
+                <option value="mysz">Myszkowski (huruf kunci berulang diberi nomor sama)</option>
+                <option value="dbl">Transposisi Ganda (dua kali kolom, dua kunci)</option>
+            </select>
+            <label for="text">Teks</label>
+            <textarea id="text">SERANG AN FAJAR PAGI</textarea>
+            <div class="row">
+                <div><label for="k1">Kunci 1</label><input id="k1" value="TOMATO" autocomplete="off"></div>
+                <div id="k2w" hidden><label for="k2">Kunci 2</label><input id="k2" value="SANDI" autocomplete="off">
+                </div>
+            </div>
+            <small>Hanya huruf A–Z yang dipakai; spasi dan tanda baca dibuang. Sisa sel diisi huruf X.</small>
+            <div class="btns">
+                <button id="enc">Enkripsi</button>
+                <button id="dec" class="alt">Dekripsi</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <label>Hasil</label>
+            <div class="out" id="out" aria-live="polite">Tekan Enkripsi atau Dekripsi.</div>
+            <div id="steps"></div>
+        </div>
+    </main>
+    <script>
+        const $ = id => document.getElementById(id);
+        const clean = s => s.toUpperCase().replace(/[^A-Z]/g, '');
+        // peringkat kunci: tie=true -> huruf sama bernomor sama (Myszkowski)
+        function ranks(k, tie) {
+            if (tie) { const u = [...new Set(k)].sort(); return [...k].map(c => u.indexOf(c) + 1) }
+            const o = [...k.keys()].sort((a, b) => k[a] < k[b] ? -1 : k[a] > k[b] ? 1 : a - b), r = [];
+            o.forEach((i, n) => r[i] = n + 1); return r;
+        }
+        // urutan indeks plaintext yang dibaca menjadi ciphertext
+        function order(len, k, tie) {
+            const n = k.length, r = ranks(k, tie), res = [];
+            for (const v of [...new Set(r)].sort((a, b) => a - b))
+                for (let row = 0; row * n < len; row++)
+                    for (let j = 0; j < n; j++) if (r[j] === v && row * n + j < len) res.push(row * n + j);
+            return res;
+        }
+        function apply(t, k, tie, dir) {
+            const o = order(t.length, k, tie);
+            if (dir === 'enc') return o.map(i => t[i]).join('');
+            const p = []; o.forEach((i, x) => p[i] = t[x]); return p.join('');
+        }
+        function grid(t, k, tie) {
+            const n = k.length, r = ranks(k, tie); let h = '<div class="scroll"><table><tr>';
+            for (const c of k) h += `<th>${c}</th>`; h += '</tr><tr>';
+            for (const x of r) h += `<td class="r">${x}</td>`; h += '</tr>';
+            for (let i = 0; i < t.length; i += n) {
+                h += '<tr>';
+                for (let j = 0; j < n; j++)h += `<td class="k${((r[j] - 1) % 6) + 1}">${t[i + j] || ''}</td>`;
+                h += '</tr>'
+            }
+            return h + '</table></div>';
+        }
+        function pad(t, n) { return t + 'X'.repeat((n - t.length % n) % n) }
+        function run(dir) {
+            const mode = $('mode').value, keys = [clean($('k1').value)];
+            if (mode === 'dbl') keys.push(clean($('k2').value));
+            let t = clean($('text').value); const err = $('steps');
+            if (!t || keys.some(k => !k)) { $('out').innerHTML = '<span class="err">Isi teks dan semua kunci dengan huruf A–Z.</span>'; err.innerHTML = ''; return }
+            const tie = mode === 'mysz'; let html = '';
+            if (dir === 'enc') {
+                t = pad(t, keys[0].length);
+                keys.forEach((k, i) => {
+                    if (i > 0) t = pad(t, k.length);
+                    html += `<div class="step"><h3>Langkah ${i + 1}: tulis per baris di bawah kunci ${k}, baca ${tie ? 'per nomor (nomor sama dibaca per baris)' : 'kolom sesuai urutan abjad'}</h3>${grid(t, k, tie)}</div>`;
+                    t = apply(t, k, tie, 'enc');
+                });
+            } else {
+                for (let i = keys.length - 1; i >= 0; i--) {
+                    t = apply(t, keys[i], tie, 'dec');
+                    html += `<div class="step"><h3>Langkah ${keys.length - i}: balikkan transposisi kunci ${keys[i]}</h3>${grid(t, keys[i], tie)}</div>`;
+                }
+            }
+            $('out').textContent = t; err.innerHTML = html;
+        }
+        $('enc').onclick = () => run('enc'); $('dec').onclick = () => run('dec');
+        $('mode').onchange = () => {
+            const d = $('mode').value === 'dbl'; $('k2w').hidden = !d;
+            $('k1').value = d ? 'KUNCI' : 'TOMATO';
+        };
+    </script>
+</body>
+
+</html>
